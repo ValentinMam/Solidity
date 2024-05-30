@@ -4,6 +4,8 @@ pragma solidity ^0.8.4; // 1. Entrez la version de Solidity ici
 
 // 2. Créez le contrat ici
 contract ZombieFactory {
+    // déclarez notre évènement ici
+    event NewZombie(uint zombieId, string name, uint dna);
     // Notre ADN Zombie va être déterminé par un nombre à 16 chiffres.
     // Déclarez un uint nommé dnaDigits ayant pour valeur 16.
     uint dnaDigits = 16;
@@ -29,7 +31,12 @@ contract ZombieFactory {
         // 1.   Remplissez le corps de la fonction afin qu'elle crée un nouveau Zombie et qu'elle l'ajoute au tableau zombies.
         // Les noms name et dna pour le nouveau Zombie devraient provenir des arguments de la fonction.
         // 2.   Faites-le en une ligne de code pour garder les choses concises.
-        zombies.push(Zombie(_name, _dna));
+
+        // zombies.push(Zombie(_name, _dna));
+
+        // et déclenchez le ici
+        uint id = zombies.push(Zombie(_name, _dna)) - 1;
+        NewZombie(id, _name, _dna);
         // La fonction createZombie de notre contrat est par défaut publique
         // cela veut dire que n'importe qui peut l'appeler et créer un nouveau Zombie dans notre contrat ! Changeons-la en privée.
         // 1.	Modifiez createZombie pour que ce soit une fonction privée. N'oubliez pas la convention de nom !
@@ -56,4 +63,12 @@ contract ZombieFactory {
         uint randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
     }
+    // A chaque fois qu'un nouveau zombie est créé, nous voulons qu'un évènement informe l'application frontale, ainsi, elle pourra l'afficher.
+    // 1.	Déclarez un event appelé NewZombie.
+    // Les arguments devront être zombieId (un uint), name (un string), et dna (un uint).
+    // 2.	Modifiez la fonction _createZombie pour déclencher l'évènement NewZombie
+    // après avoir ajouté le nouveau Zombie à notre tableau zombies.
+    // 3.	Vous allez avoir besoin de l'id du zombie. array.push () retourne un uint de la nouvelle longueur du tableau
+    // et puisque le premier élément d'un tableau a pour index 0, array.push() - 1 sera l'index du nouveau zombie ajouté.
+    // Stockez le résultat de zombies.push() - 1 dans un uint nommé id, vous pourrez donc l'utiliser dans l'évènement NewZombie de la ligne suivante.
 }
