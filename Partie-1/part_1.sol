@@ -47,8 +47,13 @@ contract ZombieFactory {
         uint rand = uint(keccak256(_str));
         return rand % dnaModulus;
     }
-    // 1.	Créez une fonction public nommée createRandomZombie. Elle devra prendre seulement un paramètre _name (un string). (Remarque : déclarez cette fonction public. de la même manière que vous avez déclaré la fonction précédente private)
+    // 1.	Créez une fonction public nommée createRandomZombie. Elle devra prendre seulement un paramètre _name (un string).
+    // Remarque : déclarez cette fonction public. de la même manière que vous avez déclaré la fonction précédente private)
     // 2.	La première ligne de la fonction devra exécuter la fonction _generateRandomDna avec comme argument _name and stocker le résultat dans un uint nommé randDna.
     // 3.	La deuxième ligne devra exécuter la fonction _createZombie avec comme arguments _name et randDna.
     // 4.	La solution devra faire 4 lignes de code (en comptant le } de fin de fonction).
+    function createRandomZombie(string _name) public {
+        uint randDna = _generateRandomDna(_name);
+        _createZombie(_name, randDna);
+    }
 }
