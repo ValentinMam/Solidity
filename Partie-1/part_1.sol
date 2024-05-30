@@ -24,5 +24,19 @@ contract ZombieFactory {
     Zombie[] public zombies;
     // Dans notre application, nous allons avoir besoin de créer des zombies. Pour cela, créons une fonction.
     // 1.	Créez une fonction appelée createZombie. Elle devra prendre deux arguments : _name (un string), et _dna (un uint).
-    function createZombie(string _name, uint _dna) {}
+    function _createZombie(string _name, uint _dna) private {
+        // Faisons faire quelque chose à notre fonction createZombie !
+        // 1.   Remplissez le corps de la fonction afin qu'elle crée un nouveau Zombie et qu'elle l'ajoute au tableau zombies.
+        // Les noms name et dna pour le nouveau Zombie devraient provenir des arguments de la fonction.
+        // 2.   Faites-le en une ligne de code pour garder les choses concises.
+        zombies.push(Zombie(_name, _dna));
+        // La fonction createZombie de notre contrat est par défaut publique
+        // cela veut dire que n'importe qui peut l'appeler et créer un nouveau Zombie dans notre contrat ! Changeons-la en privée.
+        // 1.	Modifiez createZombie pour que ce soit une fonction privée. N'oubliez pas la convention de nom !
+    }
+    // Nous allons vouloir une fonction d'aide pour générer un nombre ADN aléatoire à partir d'une chaîne de caractères.
+    // 1.	Créez une fonction private appelée _generateRandomDna. Elle prendra un paramètre nommé _str (un string), et retournera un uint.
+    // 2.	Cette fonction affichera des variables de notre contrat sans les modifier, marquez-la comme view.
+    // 3.	Laissez le corps de la fonction vide pour l'instant - nous le remplirons plus tard.
+    function _generateRandomDna(string _str) private view returns (uint) {}
 }
