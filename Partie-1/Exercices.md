@@ -18,3 +18,30 @@ contract ZombieFactory {
 
 }
 ```
+
+# Chapitre 3: Variables d'état et entiers
+
+## avant
+
+```
+pragma solidity ^0.4.19;
+
+contract ZombieFactory {
+
+    // commencez ici
+
+}
+```
+
+## après
+
+```
+pragma solidity ^0.4.19;
+
+contract ZombieFactory {
+     // commencez ici
+uint dnaDigits = 16;
+
+}
+
+```
