@@ -38,5 +38,17 @@ contract ZombieFactory {
     // 1.	Créez une fonction private appelée _generateRandomDna. Elle prendra un paramètre nommé _str (un string), et retournera un uint.
     // 2.	Cette fonction affichera des variables de notre contrat sans les modifier, marquez-la comme view.
     // 3.	Laissez le corps de la fonction vide pour l'instant - nous le remplirons plus tard.
-    function _generateRandomDna(string _str) private view returns (uint) {}
+    function _generateRandomDna(string _str) private view returns (uint) {
+        // Complétons le corps de notre fonction _generateRandomDna ! Voila ce qu'elle devrait faire :
+        // 1.	La première ligne de code doit prendre le hachage keccak256 de _str pour générer un nombre pseudo-aléatoire hexadécimal,
+        // le convertir en un uint, et enfin stocker le résultat dans un uint nommé rand.
+        // 2.	Nous allons vouloir que notre ADN fasse seulement 16 chiffres de long (vous vous rappelez notre dnaModulus ?).
+        // La deuxième ligne de code devra retourner la valeur ci-dessus modulo (%) dnaModulus.
+        uint rand = uint(keccak256(_str));
+        return rand % dnaModulus;
+    }
+    // 1.	Créez une fonction public nommée createRandomZombie. Elle devra prendre seulement un paramètre _name (un string). (Remarque : déclarez cette fonction public. de la même manière que vous avez déclaré la fonction précédente private)
+    // 2.	La première ligne de la fonction devra exécuter la fonction _generateRandomDna avec comme argument _name and stocker le résultat dans un uint nommé randDna.
+    // 3.	La deuxième ligne devra exécuter la fonction _createZombie avec comme arguments _name et randDna.
+    // 4.	La solution devra faire 4 lignes de code (en comptant le } de fin de fonction).
 }
