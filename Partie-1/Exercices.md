@@ -45,3 +45,32 @@ uint dnaDigits = 16;
 }
 
 ```
+
+# Chapitre 4: Opérations Mathématiques
+
+## avant
+
+```
+pragma solidity ^0.4.19;
+
+contract ZombieFactory {
+
+    uint dnaDigits = 16;
+    // commencez ici
+
+}
+```
+
+## après
+
+```
+pragma solidity ^0.4.19;
+
+contract ZombieFactory {
+
+    uint dnaDigits = 16;
+    // commencez ici
+uint dnaModulus = 10 ** dnaDigits;
+}
+
+```
