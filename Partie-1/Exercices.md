@@ -74,3 +74,40 @@ uint dnaModulus = 10 ** dnaDigits;
 }
 
 ```
+
+# Chapitre 5: Structures
+
+## avant
+
+```
+pragma solidity ^0.4.19;
+
+contract ZombieFactory {
+
+    uint dnaDigits = 16;
+    uint dnaModulus = 10 ** dnaDigits;
+
+    // commencez ici
+
+}
+
+```
+
+## après
+
+```
+pragma solidity ^0.4.19;
+
+contract ZombieFactory {
+
+    uint dnaDigits = 16;
+    uint dnaModulus = 10 ** dnaDigits;
+
+    // commencez ici
+struct Zombie {
+    string name ;
+    uint dna;
+}
+}
+
+```

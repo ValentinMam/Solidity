@@ -110,3 +110,26 @@ uint x = 5 \*\* 2; // égal à 5^2 = 25
 Pour être sûr que notre ADN Zombie est seulement de 16 chiffres, définissons un autre uint égal à 10^16. Comme ça, nous pourrons plus tard utiliser l'opérateur modulo % pour raccourcir un entier à 16 chiffres.
 
 Créez un uint appelé dnaModulus, et définissez-le égal à 10 à la puissance dnaDigits.
+
+# Chapitre 5: Structures
+
+Il est possible que vous ayez besoin d'un type de données plus complexe. Pour cela, Solidity fournit les structures (struct) :
+
+```
+struct Person {
+uint age;
+string name;
+}
+```
+
+Les structures vous permettent de créer des types de données plus complexes avec plusieurs propriétés.
+
+Remarque : Nous venons d'introduire un nouveau type, string (Chaîne de caractères). Les chaînes de caractères sont utilisées pour les données UTF-8 de longueur arbitraire. Ex. string greeting = "Hello world!"
+
+## A votre tour
+
+Dans notre application, nous allons vouloir créer des zombies ! Et les zombies ont plusieurs propriétés, une structure est parfaitement adapté pour ça.
+
+- Créez une struct nommée Zombie.
+
+- Notre structure Zombie aura 2 propriétés : name (un string) et dna (un uint).
