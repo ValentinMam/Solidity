@@ -15,7 +15,13 @@ contract ZombieFactory {
 
     Zombie[] public zombies;
 
-    // déclarez les mappages ici
+    // Pour savoir à qui appartient un zombie. Nous allons utiliser 2 mappages
+    // un qui va stocker l'adresse associée à un zombie, et l'autre qui va stocker combien de zombies un utilisateur possède.
+    // 1.	Créez un mappage appelé zombieToOwner. La clé est un uint (nous stockerons et rechercherons le zombie avec son id) et la valeur est une address.
+    // Ce mappage sera public.
+    // 2.	Créez un mappage appelé ownerZombieCount, où la clé est une address et la valeur un uint.
+    mapping(uint => address) public zombieToOwner;
+    mapping(address => uint) ownerZombieCount;
 
     function _createZombie(string _name, uint _dna) private {
         uint id = zombies.push(Zombie(_name, _dna)) - 1;
