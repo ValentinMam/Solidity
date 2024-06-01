@@ -48,3 +48,9 @@ contract ZombieFactory {
         _createZombie(_name, randDna);
     }
 }
+
+// Dans les prochains chapitres, nous allons implémenter les fonctionnalités pour nourrir et multiplier nos zombies.
+// Mettons cette logique dans sa propre classe qui hérite de toutes les méthodes de ZombieFactory.
+// 1.	Créez un contrat nommé ZombieFeeding en dessous de ZombieFactory. Ce contrat devra hériter de notre contrat ZombieFactory.
+
+contract ZombieFeeding is ZombieFactory {}
