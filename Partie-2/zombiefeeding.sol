@@ -26,5 +26,17 @@ contract ZombieFeeding is ZombieFactory {
     function feedAndMultiply(uint _zombieId, uint _targetDna) public {
         require(msg.sender == zombieToOwner[_zombieId]);
         Zombie storage myZombie = zombies[_zombieId];
+        // 1.	Pour commencer, nous devons nous assurer que _targetDna n'est pas plus long que 16 chiffres.
+        // Pour cela, nous pouvons définir _targetDna égal à _targetDna % dnaModulus pour ne garder que les 16 derniers chiffres.
+        // 2.	Ensuite, notre fonction devra déclarer un uint appelé newDna,
+        // et faire en sorte qu'il soit égal à la moyenne de l'ADN de myZombie et de _targetDna (comme dans l'exemple ci-dessus).
+        // Remarque : Vous pouvez accéder aux propriétés de myZombie en utilisant myZombie.name et myZombie.dna
+        // 3.	Une fois que nous avons le nouvel ADN, appelons _createZombie.
+        // Vous pouvez regarder l'onglet zombiefactory.sol si vous avez oublié quels arguments cette fonction a besoin pour être appelée.
+        // Cette fonction a besoin d'un nom, appelons notre nouveau zombie NoName pour l'instant - nous pourrons écrire une fonction pour changer les noms des zombies plus tard.
+
+        _targetDna = _targetDna % dnaModulus;
+        uint newDna = (myZombie.dna + _targetDna) / 2;
+        _createZombie("NoName", newDna);
     }
 }
