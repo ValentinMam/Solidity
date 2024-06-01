@@ -39,6 +39,11 @@ contract ZombieFactory {
     }
 
     function createRandomZombie(string _name) public {
+        // Dans notre jeu de zombie, nous ne voulons pas qu'un utilisateur puisse créer une infinité de zombie pour son armée en appelant continuellement createRandomZombie - le jeu ne serait pas très amusant.
+        // Nous allons utiliser require pour être sur que la fonction s'exécute seulement une fois par utilisateur, quand il crée son premier zombie.
+        // 1.	Ajouter une déclaration require au début de createRandomZombie.
+        // La fonction devra vérifier que ownerZombieCount[msg.sender] soit égal à 0, et renvoyer une erreur au cas contraire.
+        require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
     }
