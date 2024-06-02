@@ -8,6 +8,10 @@ OK !
 
 ## Partie #2
 
+Solidity\Partie-2
+
+OK !
+
 ## Partie #3
 
 ## Partie #4
