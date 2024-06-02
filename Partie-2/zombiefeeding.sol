@@ -8,6 +8,29 @@ pragma solidity ^0.8.4;
 
 import "./zombiefactory.sol";
 
+// 1.	Définissez une interface appelée KittyInterface. C'est comme déclarer un nouveau contrat - nous utilisons le mot clé contract.
+// 2.	Dans l'interface, définissez une fonction getKitty (copier/coller de la fonction, mais avec un ; après la déclaration returns au lieu de tout ce qu'il y a entre les {}).
+
+contract KittyInterface {
+    function getKitty(
+        uint256 _id
+    )
+        external
+        view
+        returns (
+            bool isGestating,
+            bool isReady,
+            uint256 cooldownIndex,
+            uint256 nextActionAt,
+            uint256 siringWithId,
+            uint256 birthTime,
+            uint256 matronId,
+            uint256 sireId,
+            uint256 generation,
+            uint256 genes
+        );
+}
+
 // Dans les prochains chapitres, nous allons implémenter les fonctionnalités pour nourrir et multiplier nos zombies.
 // Mettons cette logique dans sa propre classe qui hérite de toutes les méthodes de ZombieFactory.
 // 1.	Créez un contrat nommé ZombieFeeding en dessous de ZombieFactory. Ce contrat devra hériter de notre contrat ZombieFactory.
