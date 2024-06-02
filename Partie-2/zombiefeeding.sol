@@ -54,7 +54,11 @@ contract ZombieFeeding is ZombieFactory {
     // 3.	Nous allons avoir besoin de l'ADN de ce zombie.
     // La prochaine chose que notre fonction devra faire c'est de déclarer un Zombie local nommé myZombie (qui sera un pointeur storage).
     // Définissez cette variable égale à l'index _zombieId de notre tableau zombies.
-    function feedAndMultiply(uint _zombieId, uint _targetDna) public {
+    function feedAndMultiply(
+        uint _zombieId,
+        uint _targetDna,
+        string _species
+    ) public {
         require(msg.sender == zombieToOwner[_zombieId]);
         Zombie storage myZombie = zombies[_zombieId];
         // 1.	Pour commencer, nous devons nous assurer que _targetDna n'est pas plus long que 16 chiffres.
@@ -68,7 +72,33 @@ contract ZombieFeeding is ZombieFactory {
 
         _targetDna = _targetDna % dnaModulus;
         uint newDna = (myZombie.dna + _targetDna) / 2;
+        if (keccak256(_species) == keccak256("kitty")) {
+            newDna = newDna - (newDna % 100) + 99;
+        }
         // 1.	Changez _createZombie() de private à internal pour que les autres contrats puissent y accéder (fichier zombiefactory.sol).
         _createZombie("NoName", newDna);
     }
+    // Il est temps d'interagir avec le contrat CryptoKitties !
+    // Nous allons créer une fonction qui récupère les gènes d'un chaton à partir du contrat :
+    // 1.	Créez une fonction appelée feedOnKitty. Elle prendra 2 paramètres uint, _zombieId et _kittyId et elle devra être public.
+    // 2.	La fonction devra d'abord déclarer un uint nommé kittyDna.
+    // Remarque : Dans notre KittyInterface, genes est un uint256 - mais si vous vous rappelez de la leçon 1, uint est un alias pour uint256 - c'est la même chose.
+    // 3.	La fonction devra ensuite appeler la fonction kittyContract.getKitty avec _kittyId et stocker les genes dans kittyDna.
+    // N'oubliez pas - getKitty retourne une tonne de variables. (10 pour être précis). Mais nous voulons récupérer seulement la dernière, genes.
+    // Comptez vos virgules soigneusement !
+    // 4.	Enfin, la fonction devra appeler feedAndMultiply avec _zombieId et kittyDna.
+
+    function feedOnKitty(uint _zombieId, uint _kittyId) public {
+        uint kittyDna;
+        (, , , , , , , , , kittyDna) = kittyContract.getKitty(_kittyId);
+        feedAndMultiply(_zombieId, kittyDna, "kitty");
+    }
+    //     Nous allons implémenter les gènes de chat dans notre code zombie.
+    // 1.	Premièrement, changez la définition de la fonction feedAndMultiply pour qu'elle prenne un 3ème paramètre : un string nommé _species
+    // 2.	Ensuite, après avoir calculé le nouvel ADN zombie, rajoutez une déclaration if pour comparer le hachage keccak256 de _species et la chaîne de caractère "kitty".
+    // 3.	Dans cette déclaration if, nous voulons remplacer les 2 derniers chiffres de l'ADN par 99.
+    // Une façon de le faire est d'utiliser cette logique : newDna = newDna - newDna % 100 + 99;.
+    // Explication : Si newDna est 334455. Alors newDna % 100 est 55, donc newDna - newDna % 100 est 334400. Enfin on ajoute 99 pour avoir 334499.
+    // 4.	Enfin, nous avons besoin de changer l'appel de la fonction à l'intérieur de feedOnKitty.
+    // Quand elle appelle feedAndMultiply, ajoutez l'argument "kitty" à la fin.
 }
