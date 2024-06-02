@@ -37,6 +37,7 @@ contract ZombieFeeding is ZombieFactory {
 
         _targetDna = _targetDna % dnaModulus;
         uint newDna = (myZombie.dna + _targetDna) / 2;
+        // 1.	Changez _createZombie() de private à internal pour que les autres contrats puissent y accéder (fichier zombiefactory.sol).
         _createZombie("NoName", newDna);
     }
 }

@@ -23,7 +23,7 @@ contract ZombieFactory {
     mapping(uint => address) public zombieToOwner;
     mapping(address => uint) ownerZombieCount;
 
-    function _createZombie(string _name, uint _dna) private {
+    function _createZombie(string _name, uint _dna) internal {
         uint id = zombies.push(Zombie(_name, _dna)) - 1;
         // Mettons à jour notre fonction _createZombie de la leçon 1 pour désigner comme propriétaire d'un zombie celui qui appellerait cette fonction.
         // 1.	Après avoir récupéré l'id du nouveau zombie, mettons à jour notre mappage zombieToOwner pour stocker msg.sender sous cet id.
