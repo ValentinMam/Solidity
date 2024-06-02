@@ -36,6 +36,14 @@ contract KittyInterface {
 // 1.	Créez un contrat nommé ZombieFeeding en dessous de ZombieFactory. Ce contrat devra hériter de notre contrat ZombieFactory.
 
 contract ZombieFeeding is ZombieFactory {
+    //     Nous allons configurer notre contrat pour qu'il puisse lire le smart contract CryptoKitties !
+    // 1.	J'ai sauvegardé l´adresse du contrat CryptoKitties dans le code pour vous, sous une variable appelée ckAddress.
+    // A la prochaine ligne, créer une KittyInterface nommée kittyContract, et initialisez la avec ckAddress.
+
+    address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+    // initialisez kittyContract ici en utilisant `ckAddress` ci-dessus
+    KittyInterface kittyContract = KittyInterface(ckAddress);
+
     // Il est temps de donner à nos zombies la capacité de se nourrir et de se multiplier !
     // Quand un zombie se nourri d'une autre forme de vie, son ADN se combine avec l'autre forme de vie pour créer un nouveau zombie.
     // 1.	Créez une fonction appelée feedAndMultiply qui aura deux paramètres : _zombieId (un uint) et _targetDna (aussi un uint).
