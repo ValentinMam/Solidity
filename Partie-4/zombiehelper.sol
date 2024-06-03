@@ -18,6 +18,21 @@ contract ZombieHelper is ZombieFeeding {
         _;
     }
 
+    // 1.	Créez une fonction withdraw dans notre contrat, qui devra être identique à l'exemple GetPaid ci-dessus.
+
+    function withdraw() external onlyOwner {
+        owner.transfer(this.balance);
+    }
+
+    // 2.	Le prix de l'Ether a été multiplié par plus de 10 l'année dernière.
+    // Donc si c'est encore multiplié par 10, 0.001 ETH vaudront 10$ et notre jeu deviendra beaucoup plus cher.
+    // C'est donc une bonne idée de créer une fonction qui nous permet en tant que propriétaire de changer le levelUpFee.
+    //      a. Créez une fonction appelée setLevelUpFee avec un paramètre, un uint _fee, elle sera external et utilisera le modificateur onlyOwner.
+    //      b. Cette fonction devra définir le levelUpFee égal à _fee.
+    function setLevelUpFee(uint _fee) external onlyOwner {
+        levelUpFee = _fee;
+    }
+
     // 2.	Créez une fonction appelée levelUp. Elle aura un paramètre, _zombieId, un uint. Elle devra être external et payable.
     // 3.	La fonction devra d'abord utiliser un require pour vérifier que msg.value soit égal à levelUpFee.
     // 4.	Elle devra ensuite incrémenter le level du zombie : zombies[_zombieId].level++.
