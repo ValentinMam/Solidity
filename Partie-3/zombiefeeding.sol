@@ -32,7 +32,10 @@ contract ZombieFeeding is ZombieFactory {
 
     KittyInterface kittyContract;
 
-    function setKittyContractAddress(address _address) external {
+    // Maintenant nous pouvons restreindre l'accès à setKittyContractAddress pour que nous soyons le seul à pouvoir le modifier plus tard.
+    // 1.	Rajoutez le modificateur onlyOwner à setKittyContractAddress.
+
+    function setKittyContractAddress(address _address) external onlyOwner {
         kittyContract = KittyInterface(_address);
     }
 
