@@ -41,5 +41,15 @@ contract ZombieHelper is ZombieFeeding {
     // 2.	Ce sera une fonction external, afin que nous puissions l'appeler depuis web3.js sans que cela nous coûte de gas.
     // 3.	La fonction devra retourner un uint[] (un tableau de uint).
 
-    function getZombiesByOwner(address _owner) external view returns (uint[]) {}
+    function getZombiesByOwner(address _owner) external view returns (uint[]) {
+        // 1.	Déclarez une variable uint[] memory appelée result
+        // 2.	Définissez la égale à un nouveau tableau de uint.
+        // La longueur du tableau devra être le nombre de zombie que cet _owner possède,
+        // qui peut être obtenu à partir de notre mapping en faisant : ownerZombieCount[_owner].
+        // 3.	A la fin de la fonction, renvoyez result.
+        // Pour l'instant c'est simplement un tableau vide, mais nous le remplirons dans le prochain chapitre.
+        uint[] memory result = new uint[](ownerZombieCount[_owner]);
+
+        return result;
+    }
 }
