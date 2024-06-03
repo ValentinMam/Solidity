@@ -2,7 +2,11 @@
 
 pragma solidity ^0.8.4;
 
-contract ZombieFactory {
+// 1.	Modifiez notre code pour import le contenu de ownable.sol. Si vous ne vous rappelez plus comment faire, regardez zombiefeeding.sol.
+import "./ownable.sol";
+// 2.	Modifiez le contrat ZombieFactory pour qu'il hérite de Ownable. Pareillement, regardez zombiefeeding.sol si vous ne vous rappelez plus comment faire.
+
+contract ZombieFactory is Ownable {
     event NewZombie(uint zombieId, string name, uint dna);
 
     uint dnaDigits = 16;
