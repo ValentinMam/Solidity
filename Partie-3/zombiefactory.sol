@@ -15,6 +15,10 @@ contract ZombieFactory is Ownable {
     struct Zombie {
         string name;
         uint dna;
+        // 1.	Ajoutez deux propriétés à notre structure Zombie : level (un uint32), et readyTime (aussi un uint32).
+        // Nous voulons emboîter ces types de données ensemble, pour cela mettez-les à la fin de la structure.
+        uint32 level;
+        uint32 readyTime;
     }
 
     Zombie[] public zombies;
