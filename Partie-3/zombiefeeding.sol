@@ -54,19 +54,28 @@ contract ZombieFeeding is ZombieFactory {
         return (_zombie.readyTime <= now);
     }
 
+    // 1.	Actuellement feedAndMultiply est une fonction public.
+    // Rendez là internal afin que le contrat soit plus sécurisé.
+    // Nous ne voulons pas que les utilisateurs soit capables de l'appeler avec n'importe quel ADN
     function feedAndMultiply(
         uint _zombieId,
         uint _targetDna,
         string _species
-    ) public {
+    ) internal {
         require(msg.sender == zombieToOwner[_zombieId]);
         Zombie storage myZombie = zombies[_zombieId];
+        // 2.	Faites en sorte que feedAndMultiply prenne notre cooldownTime en compte.
+        // Premièrement, après avoir défini myZombie, ajoutons une déclaration require qui vérifie _isReady() en lui passant myZombie.
+        // De cette manière l'utilisateur peut seulement exécuter cette fonction si le compte à rebours du zombie est écoulé.
+        require(_isReady(myZombie));
         _targetDna = _targetDna % dnaModulus;
         uint newDna = (myZombie.dna + _targetDna) / 2;
         if (keccak256(_species) == keccak256("kitty")) {
             newDna = newDna - (newDna % 100) + 99;
         }
         _createZombie("NoName", newDna);
+        // 3.	A la fin de la fonction, appelez _triggerCooldown(myZombie) afin que l'action de manger déclenche le compte à rebours du zombie.
+        _triggerCooldown(myZombie);
     }
 
     function feedOnKitty(uint _zombieId, uint _kittyId) public {
