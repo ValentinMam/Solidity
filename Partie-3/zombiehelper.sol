@@ -49,7 +49,24 @@ contract ZombieHelper is ZombieFeeding {
         // 3.	A la fin de la fonction, renvoyez result.
         // Pour l'instant c'est simplement un tableau vide, mais nous le remplirons dans le prochain chapitre.
         uint[] memory result = new uint[](ownerZombieCount[_owner]);
-
+        // Finissons notre fonction getZombiesByOwner en écrivant une boucle for qui va parcourir tous les zombies de notre DApp,
+        // comparer leur propriétaire afin de voir s'il correspond, et les rajouter à notre tableau result avant de le retourner.
+        // 1.	Déclarer un uint appelé counter qui soit égal à 0.
+        // Nous utiliserons cette variable pour connaître l'index de notre tableau result.
+        // 2.	Déclarez une boucle for qui commence à uint i = 0 et qui va jusqu'à i < zombies.length.
+        // Cela parcourra tous les zombies de notre tableau.
+        // 3.	Dans cette boucle for, faire une déclaration if qui va vérifier si zombieToOwner[i] est égal à _owner.
+        // Cela comparera les 2 adresses pour voir si elles sont égales.
+        // 4.	A l'intérieur de cette déclaration if :
+        //      1.	Ajoutez l'ID du zombie à notre tableau result en mettant result[counter] égal à i.
+        //      2.	Incrémentez counter de 1 (voir l'exemple de boucle for ci-dessus).
+        uint counter = 0;
+        for (uint i = 0; i < zombies.length; i++) {
+            if (zombieToOwner[i] == _owner) {
+                result[counter] = i;
+                counter++;
+            }
+        }
         return result;
     }
 }
