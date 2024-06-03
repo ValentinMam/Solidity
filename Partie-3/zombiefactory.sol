@@ -11,6 +11,8 @@ contract ZombieFactory is Ownable {
 
     uint dnaDigits = 16;
     uint dnaModulus = 10 ** dnaDigits;
+    // 1.	Déclarez un uint appelé cooldownTime égal à 1 days. (si vous la mettez égale à "1 day", cela ne compilera pas !)
+    uint cooldownTime = 1 days;
 
     struct Zombie {
         string name;
@@ -27,7 +29,14 @@ contract ZombieFactory is Ownable {
     mapping(address => uint) ownerZombieCount;
 
     function _createZombie(string _name, uint _dna) internal {
-        uint id = zombies.push(Zombie(_name, _dna)) - 1;
+        // 2.	Vu que nous avons ajouté level et readyTime à notre structure Zombie dans le chapitre précédent, nous devons mettre à jour _createZombie() pour utiliser le bon nombre d'arguments quand nous créons une nouvelle structure Zombie.
+        // Mettez à jour la ligne de code zombies.push en ajoutant 2 arguments : 1 (pour level), et uint32(now + cooldownTime) (pour readyTime).
+        // Remarque : Le uint32(...) est nécessaire car now renvoie un uint256 par défaut. nous devons donc le convertir en un uint32.
+        // now + cooldownTime sera égal à l'horodatage unix actuel (en secondes) plus le nombre de secondes d'un jour - qui sera égal à l'horodatage unix dans 24h.
+        // Plus tard, nous pourrons comparer si le readyTime du zombie est supérieur à now pour voir si assez de temps s'est écoulé pour utiliser le zombie à nouveau.
+        uint id = zombies.push(
+            Zombie(_name, _dna, 1, uint32(now + cooldownTime))
+        ) - 1;
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender]++;
         NewZombie(id, _name, _dna);
