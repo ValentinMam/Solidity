@@ -14,6 +14,10 @@ OK !
 
 ## Partie #3
 
+Solidity\Partie-3
+
+OK !
+
 ## Partie #4
 
 ## Partie #5
