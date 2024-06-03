@@ -39,6 +39,21 @@ contract ZombieFeeding is ZombieFactory {
         kittyContract = KittyInterface(_address);
     }
 
+    // 1.	Commencez par définir une fonction _triggerCooldown.
+    // Elle aura 1 paramètre _zombie, un pointeur Zombie storage. la fonction devra être internal.
+    // 2.	Le corps de la fonction devra définir _zombie.readyTime égal à uint32(now + cooldownTime).
+    function _triggerCooldown(Zombie storage _zombie) internal {
+        _zombie.readyTime = uint32(now + cooldownTime);
+    }
+    // 3.	Ensuite, créez une fonction appelée _isReady.
+    // Cette fonction aura aussi 1 paramètre Zombie storage appelé _zombie.
+    // Elle sera une fonction internal view et retournera un bool.
+    // 4.	Le corps de cette fonction devra retourner (_zombie.readyTime <= now), qui sera soit true soit false.
+    // Cette fonction nous dira si assez de temps s'est écoulé depuis la dernière fois que le zombie à mangé.
+    function _isReady(Zombie storage _zombie) internal view returns (bool) {
+        return (_zombie.readyTime <= now);
+    }
+
     function feedAndMultiply(
         uint _zombieId,
         uint _targetDna,
