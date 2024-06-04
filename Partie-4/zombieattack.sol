@@ -16,8 +16,14 @@ contract ZombieBattle is ZombieHelper {
     // 4.	Enfin, elle devra (en une ligne de code) calculer un uint à partir du hachage keccak256 de now, msg.sender et randNonce -
     // et renvoyer avec return cette valeur modulo %_modulus. (Ouf! C'était un gros morceau, si vous n'avez pas tout suivi, jetez un œil à l'exemple ci-dessus où nous avons généré un nombre aléatoire - la logique est très similaire).
     uint randNonce = 0;
+    // 1.	Donnez au contrat une variable uint appelée attackVictoryProbability égale à 70.
+    uint attackVictoryProbability = 70;
+
     function randMod(uint _modulus) internal returns (uint) {
         randNonce++;
         return uint(keccak256(now, msg.sender, randNonce)) % _modulus;
     }
+    // 2.	Créez une fonction appelée attack qui aura deux paramètres : _zombieId (un uint) et _targetId (aussi un uint).
+    // Elle devra être external.
+    function attack(uint _zombieId, uint _targetId) external {}
 }
