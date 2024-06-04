@@ -25,5 +25,20 @@ contract ZombieBattle is ZombieHelper {
     }
     // 2.	Créez une fonction appelée attack qui aura deux paramètres : _zombieId (un uint) et _targetId (aussi un uint).
     // Elle devra être external.
-    function attack(uint _zombieId, uint _targetId) external {}
+
+    // 1.	Ajoutez le modificateur ownerOf à attack, pour être sûr que l'appelant possède _zombieId.
+    function attack(
+        uint _zombieId,
+        uint _targetId
+    ) external ownerOf(_zombieId) {
+        // 2.	La première chose que notre fonction doit faire, c'est d'obtenir un pointeur storage de nos deux zombies
+        // pour interagir plus facilement avec eux :
+        //      a. Déclarez un Zombie storage appelé myZombie égal à zombies[_zombieId].
+        //      b. Déclarez un Zombie storage appelé enemyZombie égal à zombies[_targetId].
+        // 3.	Nous allons utiliser un nombre aléatoire entre 0 et 99 pour déterminer le résultat du combat.
+        // Déclarez un uint appelé rand égal au résultat de la fonction randMod avec comme argument 100.
+        Zombie storage myZombie = zombies[_zombieId];
+        Zombie storage enemyZombie = zombies[_targetId];
+        uint rand = randMod(100);
+    }
 }
