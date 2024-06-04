@@ -42,10 +42,10 @@ contract ZombieBattle is ZombieHelper {
         uint rand = randMod(100);
         // 1.	Créez une déclaration if qui va vérifier si rand est plus petit ou égal à attackVictoryProbability.
         // 2.	Si c'est le cas, notre zombie gagne ! Donc :
-        // a. Incrémentez winCount de myZombie.
-        // b. Incrémentez le level de myZombie.
-        // c. Incrémentez le lossCount de enemyZombie.
-        // d. Exécutez la fonction feedAndMultiply.
+        //      a. Incrémentez winCount de myZombie.
+        //      b. Incrémentez le level de myZombie.
+        //      c. Incrémentez le lossCount de enemyZombie.
+        //      d. Exécutez la fonction feedAndMultiply.
         // Regardez zombiefeeding.sol pour voir la syntaxe pour l'appeler.
         // Pour le 3ème argument (_species_), mettez "zombie". Cela ne fait rien pour l'instant,
         // mais plus tard nous pourrons ajouter des fonctionnalités supplémentaires pour les zombies générés à partir d'autres zombies.
@@ -55,5 +55,15 @@ contract ZombieBattle is ZombieHelper {
             enemyZombie.lossCount++;
             feedAndMultiply(_zombieId, enemyZombie.dna, "zombie");
         }
+        // 1.	Ajoutez une déclaration else. Si notre zombie perd :
+        //      a. Incrémentez lossCount de myZombie.
+        //      b. Incrémentez winCount de enemyZombie.
+        else {
+            myZombie.lossCount++;
+            enemyZombie.winCount++;
+        }
+        // 2.	En dehors de la déclaration else, exécutez la fonction _triggerCooldown sur myZombie.
+        // De cette manière le zombie ne peut attaquer qu'une fois par jour.
+        _triggerCooldown(myZombie);
     }
 }
