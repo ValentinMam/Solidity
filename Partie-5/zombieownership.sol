@@ -10,6 +10,11 @@ pragma solidity ^0.8.4;
 // 3.	Déclarez un nouveau contrat, ZombieOwnership, qui héritera de ZombieAttack / ZombieBattle.
 // Laissez le corps du contrat vide pour l'instant.
 
-import "./zombieattack.sol";
+// Nous avons créé erc721.sol avec son interface en avance.
+// 1.	Importez erc721.sol dans zombieownership.sol
+// 2.	Déclarez que ZombieOwnership hérite de ZombieAttack ET de ERC721
 
-contract ZombieOwnership is ZombieBattle {}
+import "./zombieattack.sol";
+import "./erc721.sol";
+
+contract ZombieOwnership is ZombieBattle, ERC721 {}
