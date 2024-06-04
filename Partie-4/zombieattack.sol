@@ -40,5 +40,20 @@ contract ZombieBattle is ZombieHelper {
         Zombie storage myZombie = zombies[_zombieId];
         Zombie storage enemyZombie = zombies[_targetId];
         uint rand = randMod(100);
+        // 1.	Créez une déclaration if qui va vérifier si rand est plus petit ou égal à attackVictoryProbability.
+        // 2.	Si c'est le cas, notre zombie gagne ! Donc :
+        // a. Incrémentez winCount de myZombie.
+        // b. Incrémentez le level de myZombie.
+        // c. Incrémentez le lossCount de enemyZombie.
+        // d. Exécutez la fonction feedAndMultiply.
+        // Regardez zombiefeeding.sol pour voir la syntaxe pour l'appeler.
+        // Pour le 3ème argument (_species_), mettez "zombie". Cela ne fait rien pour l'instant,
+        // mais plus tard nous pourrons ajouter des fonctionnalités supplémentaires pour les zombies générés à partir d'autres zombies.
+        if (rand <= attackVictoryProbability) {
+            myZombie.winCount++;
+            myZombie.level++;
+            enemyZombie.lossCount++;
+            feedAndMultiply(_zombieId, enemyZombie.dna, "zombie");
+        }
     }
 }
