@@ -40,20 +40,21 @@ contract ZombieHelper is ZombieFeeding {
         require(msg.value == levelUpFee);
         zombies[_zombieId].level++;
     }
-
+    // 1.	Mettez à jour changeName() pour utiliser ownerOf
     function changeName(
         uint _zombieId,
         string _newName
-    ) external aboveLevel(2, _zombieId) {
-        require(msg.sender == zombieToOwner[_zombieId]);
+    ) external aboveLevel(2, _zombieId) ownerOf(_zombieId) {
+        // require(msg.sender == zombieToOwner[_zombieId]);
         zombies[_zombieId].name = _newName;
     }
 
+    // 2.	Mettez à jour changeDna() pour utiliser ownerOf
     function changeDna(
         uint _zombieId,
         uint _newDna
-    ) external aboveLevel(20, _zombieId) {
-        require(msg.sender == zombieToOwner[_zombieId]);
+    ) external aboveLevel(20, _zombieId) ownerOf(_zombieId) {
+        // require(msg.sender == zombieToOwner[_zombieId]);
         zombies[_zombieId].dna = _newDna;
     }
 
