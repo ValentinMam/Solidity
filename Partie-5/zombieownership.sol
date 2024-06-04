@@ -49,7 +49,17 @@ contract ZombieOwnership is ZombieBattle, ERC721 {
         Transfer(_from, _to, _tokenId);
     }
 
-    function transfer(address _to, uint256 _tokenId) public {}
+    // 1.	Nous voulons être sûr que seulement le propriétaire du token/zombie puisse le transférer.
+    // nous avons déjà un modificateur qui fait ça. Ajoutez donc le modificateur onlyOwnerOf à cette fonction.
+
+    function transfer(
+        address _to,
+        uint256 _tokenId
+    ) public onlyOwnerOf(_tokenId) {
+        // 2.	Maintenant le corps de la fonction se réduit à seulement une ligne... il a simplement besoin d'appeler _transfer.
+        // Assurez-vous de passer msg.sender pour l'address _from comme argument.
+        _transfer(msg.sender, _to, _tokenId);
+    }
 
     function approve(address _to, uint256 _tokenId) public {}
 
