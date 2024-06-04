@@ -28,6 +28,27 @@ contract ZombieOwnership is ZombieBattle, ERC721 {
         return zombieToOwner[_tokenId];
     }
 
+    // 1.	Définissez une fonction appelée _transfer.
+    // Elle prendra 3 arguments, address _from (de), address _to (à), et uint256 _tokenId.
+    // Elle devra être une fonction private.
+    // 2.	Nous avons 2 mappages qui vont changer quand un propriétaire change :
+    // ownerZombieCount (qui stocke combien de zombies un utilisateur a) et zombieToOwner (qui stocke le propriétaire de chaque token).
+    // La première chose que notre fonction devra faire est d'incrémenter ownerZombieCount pour la personne qui reçoit le zombie (address _to).
+    // Utilisez ++ pour incrémenter.
+    // 3.	Ensuite, nous allons devoir réduire le ownerZombieCount de la personne qui envoie le zombie (address _from).
+    // Utilisez -- pour réduire.
+    // 4.	Enfin, nous allons vouloir changer le mappage zombieToOwner de ce _tokenId afin qu'il pointe vers _to.
+    // 5.   Les specs ERC721 contiennent un évènement Transfer (transfert).
+    // La dernière ligne de notre fonction devra déclencher Transfer avec les bonnes informations -
+    // regardez erc721.sol pour voir quels arguments doivent être donnés et mettez le en place ici.
+
+    function _transfer(address _from, address _to, uint256 _tokenId) private {
+        ownerZombieCount[_to]++;
+        ownerZombieCount[_from]--;
+        zombieToOwner[_tokenId] = _to;
+        Transfer(_from, _to, _tokenId);
+    }
+
     function transfer(address _to, uint256 _tokenId) public {}
 
     function approve(address _to, uint256 _tokenId) public {}
