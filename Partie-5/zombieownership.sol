@@ -18,6 +18,11 @@ import "./zombieattack.sol";
 import "./erc721.sol";
 
 contract ZombieOwnership is ZombieBattle, ERC721 {
+    // 1.	Premièrement, définissez un mappage zombieApprovals. Cela devra associer un uint à une address.
+    // De cette manière, quand quelqu'un appelle takeOwnership avec un _tokenId,
+    // nous pourrons utiliser ce mappage pour rapidement voir qui est approuvé à prendre ce token.
+    mapping(uint => address) zombieApprovals;
+
     function balanceOf(address _owner) public view returns (uint256 _balance) {
         // 1.	Implémentez balanceOf pour renvoyer le nombre de zombies qu'un _owner a.
         return ownerZombieCount[_owner];
@@ -61,7 +66,20 @@ contract ZombieOwnership is ZombieBattle, ERC721 {
         _transfer(msg.sender, _to, _tokenId);
     }
 
-    function approve(address _to, uint256 _tokenId) public {}
+    // 2.	Dans la fonction approve, nous voulons être sûr que seulement le propriétaire du token puisse donner à quelqu'un l'autorisation
+    // de le prendre. Nous devons donc ajouter le modificateur onlyOwnerOf à approve.
+
+    function approve(
+        address _to,
+        uint256 _tokenId
+    ) public onlyOwnerOf(_tokenId) {
+        // 3.	Pour le corps de la fonction, définissez zombieApprovals pour _tokenId égal à l’adresse _to.
+        // 4.	Enfin, il y a un évènement Approval dans les specs ERC721.
+        // Nous devons donc déclencher un évènement à la fin de la fonction.
+        // Regardez erc721.sol pour les arguments, et utilisez bien msg.sender pour _owner.
+        zombieApprovals[_tokenId] = _to;
+        Approval(msg.sender, _to, _tokenId);
+    }
 
     function takeOwnership(uint256 _tokenId) public {}
 }
