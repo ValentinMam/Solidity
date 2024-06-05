@@ -30,6 +30,21 @@
         cryptoZombies = new web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
       }
 
+      function getZombieDetails(id) {
+        return cryptoZombies.methods.zombies(id).call();
+      }
+
+      // 1. Define `zombieToOwner` here
+      //   ZombieFactory.sol, nous avions un mappage : mapping (uint => address) public zombieToOwner;
+      function zombieToOwner(id) {
+        return cryptoZombies.methods.zombieToOwner(id).call();
+      }
+      // 2. Define `getZombiesByOwner` here
+      // ZombieHelper.sol, la définition de la fonction était : function getZombiesByOwner(address _owner)
+      function getZombiesByOwner(owner) {
+        return cryptoZombies.methods.getZombiesByOwner(owner).call();
+      }
+
       //  1.	Faites un copier/coller du code modèle ci-dessus pour détecter MetaMask.
       //  C'est le bloc qui commence par window.addEventListener.
       window.addEventListener("load", function () {
