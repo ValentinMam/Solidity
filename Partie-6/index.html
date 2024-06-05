@@ -10,9 +10,26 @@
     ></script>
     <!-- 1.	Ajoutez la balise de script ci-dessus dans notre projet afin que nous puissions utiliser web3.js. -->
     <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+    <!-- 1.	Ajoutez une autre balise de script pour cryptozombies_abi.js  -->
+    <script language="javascript" type="text/javascript" src="cryptozombies_abi.js"></script>
   </head>
   <body>
     <script>
+      // 2.	Au début de notre balise <script> dans le <body>, déclarez une var appelée cryptoZombies.
+      var cryptoZombies;
+
+      //   3.	Ensuite, créez une function appelée startApp().
+      function startApp() {
+        // 4.	La première chose que startApp() doit faire est de déclarer une var appelée cryptoZombiesAddress égale à "YOUR_CONTRACT_ADDRESS"
+        // (c'est l'adresse du contrat sur le réseau principal).
+        // 5.	Enfin, nous devons instancier notre contrat.
+        // Définissez cryptoZombies égal à un nouveau web3js.eth.Contract
+        // (En utilisant cryptoZombiesABI, qui est importé avec notre balise de script, et avec l'adresse cryptoZombiesAddress ci-dessus).
+
+        var cryptoZombiesAddress = "YOUR_CONTRACT_ADDRESS";
+        cryptoZombies = new web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+      }
+
       //  1.	Faites un copier/coller du code modèle ci-dessus pour détecter MetaMask.
       //  C'est le bloc qui commence par window.addEventListener.
       window.addEventListener("load", function () {
