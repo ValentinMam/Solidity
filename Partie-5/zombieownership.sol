@@ -48,8 +48,12 @@ contract ZombieOwnership is ZombieBattle, ERC721 {
     // regardez erc721.sol pour voir quels arguments doivent être donnés et mettez le en place ici.
 
     function _transfer(address _from, address _to, uint256 _tokenId) private {
-        ownerZombieCount[_to]++;
-        ownerZombieCount[_from]--;
+        // 1.	Remplacez ++ par une méthode SafeMath.
+        // ownerZombieCount[_to]++;
+        ownerZombieCount[_to] = ownerZombieCount[_to].add(1);
+        // 2.	Remplacez -- par une méthode SafeMath.
+        // ownerZombieCount[_from]--;
+        ownerZombieCount[_from] = ownerZombieCount[_from].sub(1);
         zombieToOwner[_tokenId] = _to;
         Transfer(_from, _to, _tokenId);
     }
