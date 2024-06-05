@@ -9,6 +9,10 @@ import "./safemath.sol";
 contract ZombieFactory is Ownable {
     // 2.	Ajoutez la déclaration using SafeMath for uint256;
     using SafeMath for uint256;
+    // 1.	Déclarez que nous utilisons SafeMath32 pour les uint32.
+    using SafeMath32 for uint32;
+    // 2.	Déclarez que nous utilisons SafeMath16 pour les uint16.
+    using SafeMath16 for uint16;
 
     event NewZombie(uint zombieId, string name, uint dna);
 
@@ -35,7 +39,8 @@ contract ZombieFactory is Ownable {
             Zombie(_name, _dna, 1, uint32(now + cooldownTime), 0, 0)
         ) - 1;
         zombieToOwner[id] = msg.sender;
-        ownerZombieCount[msg.sender]++;
+        // 3. Utilisons `add` de SafeMath ici :
+        ownerZombieCount[msg.sender] = ownerZombieCount[msg.sender].add(1);
         NewZombie(id, _name, _dna);
     }
 
