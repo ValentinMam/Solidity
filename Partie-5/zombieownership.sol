@@ -16,8 +16,14 @@ pragma solidity ^0.8.4;
 
 import "./zombieattack.sol";
 import "./erc721.sol";
+import "./safemath.sol";
+
+// @title Un contrat qui permet de gère le transfère de propriété d'un zombie
+// @author Valentin Mam'
+// @dev Conforme aux spécificités provisoires de l'implémentation ERC721 d'OpenZeppelin
 
 contract ZombieOwnership is ZombieBattle, ERC721 {
+    using SafeMath for uint256;
     // 1.	Premièrement, définissez un mappage zombieApprovals. Cela devra associer un uint à une address.
     // De cette manière, quand quelqu'un appelle takeOwnership avec un _tokenId,
     // nous pourrons utiliser ce mappage pour rapidement voir qui est approuvé à prendre ce token.
