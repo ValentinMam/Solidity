@@ -81,5 +81,17 @@ contract ZombieOwnership is ZombieBattle, ERC721 {
         Approval(msg.sender, _to, _tokenId);
     }
 
-    function takeOwnership(uint256 _tokenId) public {}
+    function takeOwnership(uint256 _tokenId) public {
+        // 1.	Premièrement, nous voulons utiliser une déclaration require pour vérifier que zombieApprovals pour _tokenId soit égal à msg.sender.
+        // De cette manière, si msg.sender n'a pas été approuvé pour prendre le token, cela va renvoyer une erreur.
+        // 2.	Pour pouvoir appeler _transfer, nous avons besoin de connaître l’adresse de la personne qui possède le token (pour l'argument _from).
+        // Par chance, nous pouvons retrouver ça avec notre fonction ownerOf.
+        // Déclarez une variable address appelée owner qui soit égale à ownerOf(_tokenId).
+        // 3.	Enfin, appelez _transfer, et passez lui tous les arguments nécessaires.
+        // (Vous pouvez ici utiliser msg.sender pour _to, vu que la personne qui appelle la fonction est celle à qui le token devra être envoyé).
+        // Remarque : Nous aurions pu écrire l'étape 2 et 3 en une seule ligne de code, mais c'est plus clair de séparer les choses. Préférence personnelle.
+        require(zombieApprovals[_tokenId] == msg.sender);
+        address owner = ownerOf(_tokenId);
+        _transfer(owner, msg.sender, _tokenId);
+    }
 }
