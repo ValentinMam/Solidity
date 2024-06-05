@@ -3,8 +3,13 @@
 pragma solidity ^0.8.4;
 
 import "./ownable.sol";
+// 1.	Importez safemath.sol dans zombiefactory.sol.
+import "./safemath.sol";
 
 contract ZombieFactory is Ownable {
+    // 2.	Ajoutez la déclaration using SafeMath for uint256;
+    using SafeMath for uint256;
+
     event NewZombie(uint zombieId, string name, uint dna);
 
     uint dnaDigits = 16;
