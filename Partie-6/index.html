@@ -17,6 +17,8 @@
     <script>
       // 2.	Au début de notre balise <script> dans le <body>, déclarez une var appelée cryptoZombies.
       var cryptoZombies;
+      // 1. declare `userAccount` here
+      var userAccount;
 
       //   3.	Ensuite, créez une function appelée startApp().
       function startApp() {
@@ -28,6 +30,20 @@
 
         var cryptoZombiesAddress = "YOUR_CONTRACT_ADDRESS";
         cryptoZombies = new web3js.eth.Contract(cryptoZombiesABI, cryptoZombiesAddress);
+
+        // 2. Create `setInterval` code here
+        var accountInterval = setInterval(function () {
+          // Vérifie si le compte a changé
+          if (web3.eth.accounts[0] !== userAccount) {
+            userAccount = web3.eth.accounts[0];
+            // Appelle une fonction pour mettre à jour l'interface avec le nouveau compte
+            // 3.	Remplacez la ligne updateInterface(); avec un appel à getZombiesByOwner, avec comme paramètre userAccount
+            // updateInterface();
+            // 4.	Mettez à la chaîne une déclaration then après getZombiesByOwner et passez le résultat à une fonction appelée displayZombies.
+            // (La syntaxe est : .then(displayZombies);).
+            getZombiesByOwner(userAccount).then(displayZombies);
+          }
+        }, 100);
       }
 
       function getZombieDetails(id) {
