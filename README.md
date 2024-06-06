@@ -31,3 +31,7 @@ Solidity\Partie-5
 OK !
 
 ## Partie #6
+
+Solidity\Partie-6
+
+OK !
