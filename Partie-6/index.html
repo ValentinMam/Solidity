@@ -14,6 +14,8 @@
     <script language="javascript" type="text/javascript" src="cryptozombies_abi.js"></script>
   </head>
   <body>
+    <div id="zombies"></div>
+
     <script>
       // 2.	Au début de notre balise <script> dans le <body>, déclarez une var appelée cryptoZombies.
       var cryptoZombies;
@@ -44,6 +46,28 @@
             getZombiesByOwner(userAccount).then(displayZombies);
           }
         }, 100);
+      }
+
+      function displayZombies(ids) {
+        // 1.	La première chose que nous voulons faire et de supprimer le contenu du div #zombies.
+        $("#zombies").empty();
+        // 2.	Ensuite, nous allons vouloir itérer tous les ids, en utilisant une boule "for": for (id of ids) {}
+        for (id of ids) {
+          // 3.	À l'intérieur de cette boucle, copiez/collez le bloc de code ci-dessus qui appelle getZombieDetails(id)
+          // pour chaque id et ensuite utilisez $("#zombies").append(...) pour l'ajouter à notre HTML.
+          getZombieDetails(id).then(function (zombie) {
+            $("#zombies").append(`<div class="zombie">
+              <ul>
+                <li>Name: ${zombie.name}</li>
+                <li>DNA: ${zombie.dna}</li>
+                <li>Level: ${zombie.level}</li>
+                <li>Wins: ${zombie.winCount}</li>
+                <li>Losses: ${zombie.lossCount}</li>
+                <li>Ready Time: ${zombie.readyTime}</li>
+              </ul>
+            </div>`);
+          });
+        }
       }
 
       function getZombieDetails(id) {
