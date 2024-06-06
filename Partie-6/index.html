@@ -111,6 +111,23 @@
           });
       }
 
+      // 1. Nous allons implémenter une autre fonction : levelUp.
+      function levelUp(zombieId) {
+        $("#txStatus").text("Votre zombie est en train de gagner un niveau...");
+        return (
+          cryptoZombies.methods
+            .levelUp(zombieId)
+            // 2.	Quand levelUp est appelé, "0.001" ETH converti avec toWei devra être envoyé,
+            .send({ from: userAccount, value: web3js.utils.toWei("0.001", "ether") })
+            .on("receipt", function (receipt) {
+              $("#txStatus").text("Quelle puissance écrasante ! Le zombie a bien gagné un niveau");
+            })
+            .on("error", function (error) {
+              $("#txStatus").text(error);
+            })
+        );
+      }
+
       function getZombieDetails(id) {
         return cryptoZombies.methods.zombies(id).call();
       }
@@ -145,4 +162,3 @@
     </script>
   </body>
 </html>
-s
